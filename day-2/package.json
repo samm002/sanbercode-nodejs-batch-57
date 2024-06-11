@@ -1,0 +1,14 @@
+{
+  "name": "day-2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "soal1": "node 1-baca-file.js",
+    "soal2": "node 2-simple-http-server.js",
+    "soal3": "node 3-call-custom-module.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
