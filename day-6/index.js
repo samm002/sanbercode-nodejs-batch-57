@@ -206,13 +206,19 @@ app.get('/api/categories/:name/product', (req, res) => {
   const productName = req.query.name;
   const category = categories.find(category => category.name.toLocaleLowerCase() === categoryName.toLocaleLowerCase());
 
-  console.log(category);
-
   if (category) {
-    const productsFound = products.filter(product => category.name === product.category && product.name.toLocaleLowerCase() === productName.toLocaleLowerCase());
+    const productsFound = products.filter(product => category.name === product.category);
+
     if(productsFound.length > 0) {
-      const mappedProducts = productsFound.map((product) => productFormat(product));
-      res.json(mappedProducts);
+      let mappedProducts;
+
+      if (productName) {
+        const productsFoundByName = productsFound.filter(product => product.name.toLocaleLowerCase() === productName.toLocaleLowerCase());
+        mappedProducts = productsFoundByName.map((product) => productFormat(product));
+      } else {
+        mappedProducts = productsFound.map((product) => productFormat(product));
+      }
+      return res.json(mappedProducts);
     } else {
       return res.status(404).json({ message: `Product with name '${productName}' not found in '${category.name}' category`});
     }
