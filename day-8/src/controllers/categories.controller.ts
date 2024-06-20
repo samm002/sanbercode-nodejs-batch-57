@@ -54,10 +54,10 @@ export default {
   },
   async findOne(req: Request, res: Response) {
     try {
-      // Cari category yang telah ada di database, jika tidak ditemukan return error dengan pesan id category tidak ditemukan
+      // Cari category yang telah ada di database beserta relasi products, jika tidak ditemukan return error dengan pesan id category tidak ditemukan
       const category = await Category.findOne({
         _id: req.params.id,
-      });
+      }).populate("products");
 
       if (!category) {
         return res.status(404).json({
